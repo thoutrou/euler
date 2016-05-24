@@ -1,3 +1,4 @@
+//Not working
 function DotW (date){
   date = date.split(".");
   var tag = parseInt(date[0]);
