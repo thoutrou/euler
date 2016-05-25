@@ -33,27 +33,30 @@ for(var i = 2; i <= upper_limit; i++){
 }
 console.log("Number of abundant numbers: " + abundant_numbers.length);
 
-//Get all Numbers that can be written as sum of two abundant numbers
-var numbers = [];
-var temp;
+//Make a List of all the numbers below 28123
+//asume they all can't get produced by two abundant numbers
+var numbers = {};
+for (var i = 1; i < upper_limit; i++) {
+  numbers[i] = false;
+}
+
+//Find all Numbers that can be written as sum of two abundant numbers
+//mark them in the list
 for (var i = 0; i < abundant_numbers.length; i++) {
   for (var j = i; j < abundant_numbers.length; j++) {
     temp = abundant_numbers[i]+abundant_numbers[j];
     if (temp <= upper_limit) {
-      if(numbers.indexOf(temp) == -1){
-        numbers.push(abundant_numbers[i]+abundant_numbers[j]);
-      }
+      numbers[temp] = true;
     }
   }
 }
-console.log("Numbers that can be written as sum of two abundant numbers: " + numbers.length);
 
-//sum up all remaining numbers below 28123
- var sum = 0;
-// for (var i = 1; i <= upper_limit; i++) {
-//   if (numbers.indexOf(i) == -1) {
-//     sum += i;
-//   }
-// }
+//Go trouth the list and sum all numbers that can't get produced by two abundant numbers
+var sum = 0;
+for(var i = 1; i < upper_limit; i++){
+  if(!numbers[i]){
+    sum += i;
+  }
+}
 
 console.log(sum);
