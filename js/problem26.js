@@ -1,42 +1,34 @@
-//Not enough digits
-function findCycle (num){
-  var cycle = "";
-  var num_string = num.toString().split(".")[1];
-  if (num_string.length < 16) {
-    return cycle;
+//Solution Approach from http://www.mathblog.dk/project-euler-26-find-the-value-of-d-1000-for-which-1d-contains-the-longest-recurring-cycle/
+function cycleLength (d) {
+  var numbers = {};
+  var number = 1;
+  while (!(numbers.hasOwnProperty(number))) {
+    numbers[number] = true;
+    number = (number * 10) % d;
   }
-  //-2 just to make in case the last digit is rounded
-  var test_string;
-  for(var i = num_string.length - 2; i >= 0; i--){
-    cycle = num_string[i] + cycle;
-    if(i - cycle.length > 0){
-      test_string = num_string.substr(i-cycle.length, cycle.length);
-      if(test_string == cycle){
-        if(i - cycle.length * 2 > 0){
-          test_string = num_string.substr(i-cycle.length*2, cycle.length);
-          if(test_string == cycle){
-            return cycle;
-          }
-        }else{
-          return cycle;
-        }
-      }
+
+  var length = 0;
+  for (var key in numbers) {
+    if (numbers.hasOwnProperty(key)) {
+      length++;
     }
   }
-  return cycle;
+  return length;
 }
 
-var longest_cycle = "";
-var digit;
-var foo;
-for (var i = 2; i < 1000; i++) {
-  // console.log((1/i).toString().split(".")[1]);
-  foo = findCycle(1/i);
-  if(foo.length > longest_cycle.length){
-    longest_cycle = foo;
-    digit = i;
+var number;
+var max_length = 0;
+var cycle_length;
+for (var i = 999; i > 1; i--) {
+  cycle_length = cycleLength(i);
+  if(cycle_length > max_length){
+    max_length = cycle_length;
+    number = i;
+    if(max_length == number - 1){
+      break;
+    }
   }
 }
 
-console.log(longest_cycle);
-console.log(digit);
+console.log("Length: " + max_length);
+console.log("Number: " + number);

@@ -4,7 +4,7 @@ function LongestCollatzSequence (limit) {
   var tempSequence = [];
   for(var i = 1; i <= limit; i++){
     number = i;
-    //console.log(i);   //Turn on to see current status (!!Warning: will take longer!!)
+    //console.log(i);   //Turn on to see current status (!!will take longer!!)
     tempSequence = [];
     //build tempSequence for number i
     while(number > 1){
